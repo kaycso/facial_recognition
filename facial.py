@@ -2,11 +2,10 @@ import cv2
 import os
 
 # Obter o caminho completo para a pasta onde estão as imagens
-name_folder = './images/raw_images'
-image_folder = os.path.join(os.getcwd(), name_folder)
+image_folder = './images/raw_images'
 
 # Obter lista de todas as imagens .jpg na pasta
-images = [os.path.join(image_folder, file) for file in os.listdir(image_folder) if file.endswith('.jpg')]
+images = [os.path.join(image_folder, file) for file in os.listdir(image_folder) if file.endswith(('.jpg', '.jpeg', '.png'))]
 
 # Carregar o classificador Haar Cascade para detecção de face frontal
 face_cascade = cv2.CascadeClassifier('./classifier/haarcascade_frontalface_default.xml')
@@ -28,6 +27,7 @@ for image_path in images:
 
     # Detectar as faces na imagem
     faces = face_cascade.detectMultiScale(gray_image, scaleFactor=1.09, minNeighbors=10, minSize=(30, 30)) # o retorno é um array com as coordenadas de todas faces detectadas
+    print(faces)
 
     # Verifica se foi detectada alguma face
     if len(faces) == 0:
